@@ -1,7 +1,10 @@
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class WordViewed {
+public class WordViewed implements Serializable {
+
+    private static final long serialVersionUID = 1057452832;
 
     private int numOfViewed = 0;
 
