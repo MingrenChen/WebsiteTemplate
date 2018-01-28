@@ -1,6 +1,4 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class SerializeFactory {
@@ -13,16 +11,27 @@ public class SerializeFactory {
     private SerializeFactory() {
     }
 
-    public ArrayList<Word> loadData(){
-        S
+    public ArrayList<WordViewed> loadNotebook() throws IOException {
         try {
-            for (int i=0;i<26;i++) {
-                ObjectInputStream readInventory =
-                        new ObjectInputStream(new FileInputStream("./dict/" + initial + ".out"));
-            }
-        } catch (IOException e) {
+            ObjectInputStream readInventory =
+                         new ObjectInputStream(new FileInputStream("./dict/notebook.out"));
+            return (ArrayList<WordViewed>)(readInventory.readObject());
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
-
     }
+
+    public void saveNotebook() throws IOException {
+        ObjectOutputStream inventory = new
+                ObjectOutputStream(new FileOutputStream("./dict/notebook.out"));
+        inventory.writeObject(Notebook.getInstance().getNotebook());
+        inventory.close();
+    }
+
+
+
+
+
+
 }

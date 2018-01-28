@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Notebook {
@@ -7,8 +9,11 @@ public class Notebook {
 
     public static Notebook getInstance() {
         if(notebook == null)
-            notebook = new Notebook();
-
+            try{
+                notebook.setList(SerializeFactory.getInstance().loadNotebook());
+            } catch (IOException e) {
+                notebook = new Notebook();
+            }
         return notebook;
     }
 
@@ -22,5 +27,9 @@ public class Notebook {
 
     public void add(WordViewed value) {
         list.add(value);
+    }
+
+    public void setList(ArrayList<WordViewed> newList){
+        list = newList;
     }
 }
