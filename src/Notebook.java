@@ -10,7 +10,7 @@ public class Notebook {
     public static Notebook getInstance() {
         if(notebook == null)
             try{
-                notebook.setList(SerializeFactory.getInstance().loadNotebook());
+                notebook.setList((ArrayList<WordViewed>)SerializeFactory.getInstance().loadNotebook());
             } catch (IOException e) {
                 notebook = new Notebook();
             }

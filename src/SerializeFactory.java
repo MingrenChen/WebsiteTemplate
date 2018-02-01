@@ -11,11 +11,11 @@ public class SerializeFactory {
     private SerializeFactory() {
     }
 
-    public ArrayList<WordViewed> loadNotebook() throws IOException {
+    public Object loadNotebook() throws IOException {
         try {
             ObjectInputStream readInventory =
                          new ObjectInputStream(new FileInputStream("./dict/notebook.out"));
-            return (ArrayList<WordViewed>)(readInventory.readObject());
+            return readInventory.readObject();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -28,6 +28,8 @@ public class SerializeFactory {
         inventory.writeObject(Notebook.getInstance().getNotebook());
         inventory.close();
     }
+
+
 
 
 
