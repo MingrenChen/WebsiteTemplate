@@ -36,6 +36,10 @@ li a {
 #signup{
     padding: 12px;
 }
+.li:hover .dropdown-menu {
+    display: block;
+}
+
 
 /*#icon{*/
 /*width:30px;*/
