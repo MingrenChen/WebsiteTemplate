@@ -1,49 +1,35 @@
-var uri = "mongodb://root:6966xx511@ds237669.mlab.com:37669/dictionary";
-
-var mongoose = require('mongoose');
-
-mongoose.connect(uri);
-
-var bcrypt   = require('bcrypt-nodejs');
-var Schema = mongoose.Schema;
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-    console.log('db connected');
+var mysql = require("mysql");
+var connection = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:""
 });
 
-
-var userSchema = mongoose.Schema({
-    username: String,
-    local            : {
-        email        : String,
-        password     : String
-    },
-    wordbook: [String],
-    review: [String]
+connection.connect(function(err){
+    if (err) {
+        console.log("Error Connection to DB" + err);
+        return;
+    }
+    console.log("Connection established...");
 });
 
 
 
-userSchema.methods.generateHash = function(password) {
+var LocalUser = {};
+const bcrypt = require('bcrypt-nodejs');
+generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // checking if password is valid
-userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+validPassword = function(TruePassword, TypeInPassword) {
+    return bcrypt.compareSync(TruePassword, TypeInPassword);
 };
 
-
-
-
-
-
-
-var User = mongoose.model('User', userSchema);
-
 module.exports = {
-    User: User
+    connection: connection,
+    LocalUser: LocalUser,
+    validPassword: validPassword,
+    generateHash: generateHash
 };
 

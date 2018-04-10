@@ -1,0 +1,48 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+
+        title signup
+
+        link(rel='stylesheet', type='text/css', href='/signup.css')
+    body
+        form#form(action='signup', style='border:1px solid #ccc', method='post')
+            .container
+                h1 Sign Up
+
+                p Please fill in this form to create an account.
+
+                - if (message.length > 0)
+                    div(class="alert alert-danger" id="Error") #{message}
+
+                hr
+
+                label(for='email')
+                    b Email
+
+                input(type='text', placeholder='Enter Email', name='email', required='')
+
+                label(for='password')
+                    b Password
+
+                input(type='password', placeholder='Enter Password', name='password', required='')
+                // <label for="password-repeat"><b>Repeat Password</b></label>
+                // <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                label
+                    input(type='checkbox', checked='checked', name='remember', style='margin-bottom:15px')
+                    |  Remember me
+
+                p
+                    | Already have an account?
+                    a(href='/login')  Login
+
+                p
+                    | By creating an account you agree to our
+                    a(href='#', style='color:dodgerblue') Terms &amp; Privacy
+                    | .
+
+                .clearfix
+                    button.cancelbtn(type='button') Cancel
+
+                    button.signupbtn(type='submit') Sign Up

@@ -33,10 +33,13 @@ li a {
 #login{
     padding: 12px;
 }
+#signup{
+    padding: 12px;
+}
 
 /*#icon{*/
-    /*width:30px;*/
-    /*height:30px;*/
+/*width:30px;*/
+/*height:30px;*/
 /*}*/
 .container
 { padding-top: 70px; }

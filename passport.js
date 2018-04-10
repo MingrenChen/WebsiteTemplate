@@ -4,7 +4,10 @@
 var LocalStrategy   = require('passport-local').Strategy;
 
 // load up the user model
-var User = require('./databases.js').User;
+var connection = require('./databases.js').connection;
+var LocalUser = require('./databases.js').LocalUser;
+var validPassword = require('./databases').validPassword;
+var generateHash = require('./databases').generateHash;
 // console.log(User);
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -17,13 +20,14 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.email);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
+    passport.deserializeUser(function(email, done) {
+
+        connection.query("select * from User where email = '" + email + "';",function(err,rows){
+            done(err, rows[0]);
         });
     });
 
@@ -40,43 +44,38 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) {
-            console.log(email, password);
+            connection.query("use Dictionary;");
             // asynchronous
             // User.findOne wont fire unless data is sent back
             process.nextTick(function() {
-
-                // find a user whose email is the same as the forms email
-                // we are checking to see if the user trying to login already exists
-                User.findOne({ 'local.email' :  email }, function(err, user) {
-                    // if there are any errors, return the error
+                // use injection to check in mysql to see if a user is login or not.
+                query = "select * from User where email='" + email + "';";
+                connection.query(query, function(err, rows){
+                    console.log(rows);
+                // if there are any errors, return the error
                     if (err)
                         return done(err);
-
-                    // check to see if theres already a user with that email
-                    if (user) {
+                        // check to see if theres already a user with that email
+                    if (rows.length > 0) {
                         console.log("user exists");
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
                         // if there is no user with that email
                         // create the user
-                        var newUser          = new User();
-
-                        // set the user's local credentials
-                        newUser.local.email    = email;
-                        newUser.local.password = newUser.generateHash(password);
-                        newUser.wordbook = [];
-                        newUser.review = [];
+                        var newUser = LocalUser;
+                        password = generateHash(password);
+                        newUser.password = password;
+                        newUser.email = email;
 
                         // save the user
-                        newUser.save(function(err) {
+                        query = "insert into User values ('" + email + "','" + password + "');";
+                        connection.query(query, function(err) {
                             if (err)
                                 throw err;
                             return done(null, newUser);
                         });
                     }
-
                 });
-
             });
 
         }));
@@ -94,27 +93,29 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) { // callback with email and password from our form
-
+            connection.query("use Dictionary;");
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            User.findOne({ 'local.email' :  email }, function(err, user) {
+            query = "select * from User where email='" + email + "';";
+            connection.query(query, function(err, rows){
                 // if there are any errors, return the error before anything else
                 if (err)
                     return done(err);
 
                 // if no user is found, return the message
-                if (!user) {
-                    console.log("no such user");
-                    alert("no such user");
+                if (!rows.length > 0)
                     return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-                }
+
                 // if the user is found but the password is wrong
-                if (!user.validPassword(password))
-                    console.log("pwd error");
+                if (!validPassword(password, rows[0].password))
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
                 // all is well, return successful user
-                return done(null, user);
+                console.log("login success");
+                var newUser = LocalUser;
+                newUser.password = rows[0].password;
+                newUser.email = email;
+                return done(null, newUser);
             });
 
         }));

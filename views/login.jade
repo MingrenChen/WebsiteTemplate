@@ -1,0 +1,42 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+
+        title login
+
+        link(rel='stylesheet', type='text/css', href='/login.css')
+    body
+        form#form(action='login', style='border:1px solid #ccc', method='post')
+            // <% if (message.length == 0) { %>
+            // <div class="alert alert-danger">aiwrguhlaiwuehglaiwuehfgliauwehf</div>
+            // <% } %>
+            .container
+                h1 Login
+
+                p Please fill in this form to login.
+                // error message
+                - if (message.length > 0)
+                     div(class="alert alert-danger" id="Error") #{message}
+
+                hr
+
+                label(for='email')
+                    b Email
+
+                input(type='text', placeholder='Enter Email', name='email', required='')
+
+                label(for='password')
+                    b Password
+
+                input(type='password', placeholder='Enter Password', name='password', required='')
+                // <label for="password-repeat"><b>Repeat Password</b></label>
+                // <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                p
+                    | Don&apos;t have an account?
+                    a(href='/signup')  Signup
+
+                .clearfix
+                    button.cancelbtn(type='button') Cancel
+
+                    button.signupbtn(type='submit') Login

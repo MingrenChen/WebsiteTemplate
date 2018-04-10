@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var jade = require('jade');
 // var engines = require('consolidate');
 var JSONStream = require('JSONStream');
 var bodyParser = require('body-parser');
@@ -29,7 +30,7 @@ function defaultContentTypeMiddleware (req, res, next) {
     next();
 }
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
