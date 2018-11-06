@@ -1,11 +1,70 @@
 doctype html
-html
+html(lang="en")
     head
-        //meta charset="UTF-8"
-        title Templete index page
-        link(rel='stylesheet prefetch', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
-        link(rel='stylesheet prefetch', href='http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css')
+        meta(charset="UTF-8")
+
+        title Where2Live: A Housing Sharing Website
+
+        link(rel="stylesheet prefetch", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+
+        link(rel="stylesheet prefetch", href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css")
+
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css")
-        link(rel="stylesheet", type="text/css" href="/index_style.css")
+
+        link(rel="stylesheet", href="/index_style.css")
     body
-        include ./partials/navbar.jade
+        // nav
+        nav.navbar.navbar-default.banner
+            .container-fluid
+                .navbar-header
+                    // <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    // <span class="sr-only">Toggle navigation</span>
+                    // <span class="icon-bar"></span>
+                    // <span class="icon-bar"></span>
+                    // <span class="icon-bar"></span>
+                    // </button>
+                    a.navbar-brand(href="index") Where2Live
+
+                    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                        ul#navright.nav.navbar-right.navbar-nav-primary
+                            li
+                                // should be action="/search" method="post" role="search"
+                                form.search-container(action="", onsubmit="sendToPage()")
+                                    input#search-box.search-box(type="text", placeholder="Search a project")
+
+                                    label(for="search-box")
+                                        span.glyphicon.glyphicon-search.search-icon
+
+                                    input#search-submit(type="submit")
+
+                            if user
+                                li
+                                    a(id="emailadd") #{user.email}
+                                li
+                                    a#logout(href="logout") Logout
+                            else
+                                li
+                                    a#login(href="login") Login
+        // profile pic
+        .portrait
+            img(src="/banner.png")
+        // items
+        .container
+            h1 Top picks
+
+            #new_post.grid
+
+            h1 Recommended for you
+
+            #recommends.grid
+
+        .copyright.py-4.text-center.text-white
+            .container
+                small Copyright © CSC309 TEAM 2018
+
+
+        script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+
+        script(src="index.js")

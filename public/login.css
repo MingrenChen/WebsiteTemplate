@@ -1,85 +1,97 @@
-* {box-sizing: border-box}
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
+@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+.border-radius {
+    border-radius: 5px;
 }
-
-#form{
-    margin: auto;
-    position: absolute;
-    top: 0; left: 25%; bottom: 0; right: 25%;
-
+body {
+    background: black;
+    background-size: cover;
+    background-position: 50%;
+    font-family: 'Roboto';
+    color: #fff;
 }
-
-input[type=text]:focus, input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
-
-hr {
-    border: 1px solid #f1f1f1;
-    margin-bottom: 25px;
+.tabs,
+.form {
+    width: 390px;
+    opacity: 0.8;
+    border-radius: 5px;
 }
-
-#Error{
-    background: lightpink;
-    margin: auto;
-    position: center;
-    padding: 14px 20px;
-    color: red;
+.tabs {
+    background: #000000;
+    height: 60px;
+    margin: 25px auto 10px;
+    color: #000;
 }
-
-
-
-/* Set a style for all buttons */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
+.form {
+    height: 300px;
+    margin: 25px auto;
+    background: #000;
 }
-
-button:hover {
-    opacity:1;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-    padding: 14px 20px;
-    background-color: #f44336;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
+li {
+    display: block;
+    width: 40%;
+    height: 30px;
+    vertical-align: middle;
     float: left;
-    width: 50%;
+    margin: 15px;
+    padding: 0;
+    border-right: 1px solid #fff;
 }
-
-/* Add padding to container elements */
+li:last-child {
+    border: none;
+}
+#login,
+#register{
+    width: 40%;
+    margin-left: 30%;
+}
+li a {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 18px;
+}
+li a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+li a:active {
+    color: #fff;
+    text-decoration: none;
+}
+li a:link {
+    color: #fff;
+    text-decoration: none;
+}
 .container {
-    padding: 16px;
+    margin-top: 20px;
 }
-
-/* Clear floats */
-.clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
+.input {
+    margin: 20px 0;
 }
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-    .cancelbtn, .signupbtn {
-        width: 100%;
-    }
+input.main-form {
+    border: 1px solid #a0b3b0;
+    display: block;
+    width: 100%;
+    height: 40px;
+    color: #fff;
+    background: #000;
+    font-size: 16px;
+}
+input[type="checkbox"] {
+    margin-right: 5px;
+    vertical-align: top;
+}
+.input a {
+    color: #fff;
+}
+.form input.btn {
+    background: #000000;
+    border: none;
 }

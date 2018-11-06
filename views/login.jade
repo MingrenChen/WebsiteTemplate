@@ -1,42 +1,74 @@
 doctype html
-html(lang='en')
+html(lang="en")
     head
-        meta(charset='UTF-8')
+        meta(charset="UTF-8")
 
-        title login
+        title Login or Register Form
 
-        link(rel='stylesheet', type='text/css', href='/login.css')
+        link(rel="stylesheet prefetch", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+        link(rel="stylesheet prefetch", href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css")
+
+        link(rel="stylesheet", href="login.css")
     body
-        form#form(action='login', style='border:1px solid #ccc', method='post')
-            // <% if (message.length == 0) { %>
-            // <div class="alert alert-danger">aiwrguhlaiwuehglaiwuehfgliauwehf</div>
-            // <% } %>
-            .container
-                h1 Login
+        .container
+            video#myVideo(autoplay="", muted="", loop="")
+                source(src="/background.mp4", type="video/mp4")
+            .row
+                .col-sm-12
+                    ul.tabs
+                        li
+                            a#1(href="#") LOGIN
+                        li
+                            a#2(href="#") SIGN UP
+                .col-sm-12
+                    form#login(action='/login', method='post')
+                        .col-sm-12.container
+                            .input
+                                input.main-form.animated.bounceInDown(type="text", name="username", placeholder=" EMAIL ADDRESS")
 
-                p Please fill in this form to login.
-                // error message
-                - if (message.length > 0)
-                     div(class="alert alert-danger" id="Error") #{message}
+                            .input
+                                input.main-form.animated.bounceInDown(type="password", name="password", placeholder=" PASSWORD")
 
-                hr
+                            .input
+                                input.main-form.btn.animated.bounceInDown(type="submit", name="username", value="LOGIN", formaction="/login")
 
-                label(for='email')
-                    b Email
+                            .input
+                                a(href="./index")
+                                    input.main-form.btn.animated.bounceInDown(type="button", name="back", onclick="", value="BACK")
 
-                input(type='text', placeholder='Enter Email', name='email', required='')
+                            .input
+                                label.pull-left
+                                    input(type="checkbox")
+                                    | Remember me
 
-                label(for='password')
-                    b Password
+                                label.pull-right
+                                    a#3.forget-password(href="#") Forgot password ?
 
-                input(type='password', placeholder='Enter Password', name='password', required='')
-                // <label for="password-repeat"><b>Repeat Password</b></label>
-                // <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-                p
-                    | Don&apos;t have an account?
-                    a(href='/signup')  Signup
+                    form#register(action="/signup", style="display: none;")
+                        .col-sm-12.container
+                            .input
+                                input.main-form.animated.bounceInDown(type="text", name="name", placeholder=" NAME")
 
-                .clearfix
-                    button.cancelbtn(type='button') Cancel
+                            .input
+                                input.main-form.animated.bounceInDown(type="text", name="email", placeholder=" EMAIL ADDRESS")
 
-                    button.signupbtn(type='submit') Login
+                            .input
+                                input.main-form.animated.bounceInDown(type="password", name="password", placeholder=" PASSWORD")
+
+                            .input
+                                input.main-form.btn.animated.bounceInDown(type="submit", name="submit", value="SIGN UP", formaction="/signup")
+
+                    #forgetP.form.row(style="display: none;")
+                        .col-sm-12.container
+                            .input
+                                p
+                                    | To reset your password enter your email we'll send you a link to reset your password.
+
+                            .input
+                                input.main-form.animated.bounceInDown(type="text", name="username", placeholder=" EMAIL ADDRESS")
+
+                            .input
+                                input.main-form.btn.reset.animated.bounceInDown(type="button", name="", value="RESET PASSWORD")
+
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+    script(src="login.js")

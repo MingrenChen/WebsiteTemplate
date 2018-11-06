@@ -25,7 +25,6 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(email, done) {
-
         connection.query("select * from User where email = '" + email + "';",function(err,rows){
             done(err, rows[0]);
         });
@@ -93,6 +92,8 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) { // callback with email and password from our form
+            console.warn("login here")
+
             connection.query("use Dictionary;");
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists

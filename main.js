@@ -50,7 +50,7 @@ var session      = require('express-session');
 var configDB = require('./databases.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+// mongoose.connect(configDB.url); // connect to our database
 
 require('./passport')(passport); // pass passport for configuration
 
@@ -73,4 +73,3 @@ require('./routes.js')(app, passport); // load our routes and pass in our app an
 var server = app.listen(3000, function () {
     console.log('Server running at http://localhost:' + server.address().port);
 });
-
